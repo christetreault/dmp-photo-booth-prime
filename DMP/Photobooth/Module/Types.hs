@@ -62,6 +62,19 @@ resultValue (PrinterResult _ _ v) = v
 resultValue (TriggerResult _ _ v) = v
 
 {-|
+   Helper function to extract the value from a Result
+-}
+resultLog ::
+    Result cas ins pes phs prs trs r
+    -> [LogEntry]
+resultLog (CameraResult l _ _) = l
+resultLog (InterfaceResult l _ _) = l
+resultLog (PersistenceResult l _ _) = l
+resultLog (PhotostripResult l _ _) = l
+resultLog (PrinterResult l _ _) = l
+resultLog (TriggerResult l _ _) = l
+
+{-|
    A log entry. Formalizes the format of the log output.
 -}
 data LogEntry =

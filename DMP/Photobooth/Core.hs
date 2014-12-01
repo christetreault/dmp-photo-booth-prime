@@ -15,6 +15,8 @@ import DMP.Photobooth.Core.Types
 import DMP.Photobooth.Monads
 import Control.Monad
 import Control.Monad.Trans
+import Control.Concurrent.STM
+import Control.Monad.State
 
 
 -- | Key for the camera module configs
@@ -117,22 +119,30 @@ readModConfig s k gfn sfn =
             return ()
 
 {-|
-   Pushes all logs from this result to the Interface
--}
-pushLogs ::
-   Result cas ins pes phs prs trs r
-   -> CoreMonad cas ins pes phs prs trs ()
-pushLogs r =
-   undefined
-
-{-|
-   Pushes a LogEntry to the interface
+   Pushes a LogEntry to the Log Queue
 -}
 pushLog ::
    LogEntry
    -> CoreMonad cas ins pes phs prs trs ()
 pushLog l =
-   undefined
+   do
+      cs <- get
+      liftIO $
+         atomically $
+            writeTQueue (csLogQueue cs) l
+
+{-|
+   Pushes all logs from this result to the Log Queue
+-}
+pushLogs ::
+   Result cas ins pes phs prs trs r
+   -> CoreMonad cas ins pes phs prs trs ()
+pushLogs r =
+   do
+      logs <-
+         return $
+            resultLog r
+      sequence_ $ map pushLog logs
 
 {-|
    Stores the state in a Result into the Core state
@@ -221,48 +231,54 @@ pushIfError _ =
    Builds the initial state of the Core
 -}
 initCoreState ::
-   CoreState cas ins pes phs prs trs
+   IO (CoreState cas ins pes phs prs trs)
 initCoreState =
-   CoreState
-      {csCamera =
-         ModuleStorage
-            {modState = initialCameraState,
-             modConfig = 
-               Configuration
-                  {moduleName = Camera,
-                   moduleConfig = defaultCameraConfig}},
-       csInterface =
-          ModuleStorage
-             {modState = initialInterfaceState,
-              modConfig = 
-               Configuration
-                  {moduleName = Interface,
-                   moduleConfig = defaultInterfaceConfig}},
-       csPersistence =
-          ModuleStorage
-             {modState = initialPersistenceState,
-              modConfig = 
-               Configuration
-                  {moduleName = Persistence,
-                   moduleConfig = defaultPersistenceConfig}},
-       csPhotostrip =
-          ModuleStorage
-             {modState = initialPhotostripState,
-              modConfig = 
-               Configuration
-                  {moduleName = Photostrip,
-                   moduleConfig = defaultPhotostripConfig}},
-       csPrinter =
-          ModuleStorage
-             {modState = initialPrinterState,
-              modConfig = 
-               Configuration
-                  {moduleName = Printer,
-                   moduleConfig = defaultPrinterConfig}},
-       csTrigger =
-          ModuleStorage
-             {modState = initialTriggerState,
-              modConfig = 
-               Configuration
-                  {moduleName = Trigger,
-                   moduleConfig = defaultTriggerConfig}}}
+   do
+      logQueue <-
+         atomically newTQueue
+      return $
+         CoreState
+            {csLogQueue =
+               logQueue,
+             csCamera =
+               ModuleStorage
+                  {modState = initialCameraState,
+                   modConfig = 
+                     Configuration
+                        {moduleName = Camera,
+                         moduleConfig = defaultCameraConfig}},
+             csInterface =
+                ModuleStorage
+                   {modState = initialInterfaceState,
+                    modConfig = 
+                     Configuration
+                        {moduleName = Interface,
+                         moduleConfig = defaultInterfaceConfig}},
+             csPersistence =
+                ModuleStorage
+                   {modState = initialPersistenceState,
+                    modConfig = 
+                     Configuration
+                        {moduleName = Persistence,
+                         moduleConfig = defaultPersistenceConfig}},
+             csPhotostrip =
+                ModuleStorage
+                   {modState = initialPhotostripState,
+                    modConfig = 
+                     Configuration
+                        {moduleName = Photostrip,
+                         moduleConfig = defaultPhotostripConfig}},
+             csPrinter =
+                ModuleStorage
+                   {modState = initialPrinterState,
+                    modConfig = 
+                     Configuration
+                        {moduleName = Printer,
+                         moduleConfig = defaultPrinterConfig}},
+             csTrigger =
+                ModuleStorage
+                   {modState = initialTriggerState,
+                    modConfig = 
+                     Configuration
+                        {moduleName = Trigger,
+                         moduleConfig = defaultTriggerConfig}}}

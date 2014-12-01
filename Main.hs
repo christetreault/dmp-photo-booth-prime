@@ -13,7 +13,10 @@ import DMP.Photobooth.Monads
 import DMP.Photobooth.Core
 
 main =
-   runCoreMonad
-      initCoreState
-      photoboothMain
+   do
+      coreState <-
+         initCoreState
+      runCoreMonad
+         coreState
+         photoboothMain
 
