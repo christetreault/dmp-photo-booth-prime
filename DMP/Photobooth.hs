@@ -17,6 +17,8 @@ import DMP.Photobooth.Module
 import DMP.Photobooth.Monads
 import Control.Concurrent.STM
 import Control.Monad.Error
+import Control.Concurrent
+import Control.Monad.Trans.Maybe
 
 import qualified DMP.Photobooth.Module.Printer as Printer
 import qualified DMP.Photobooth.Module.Trigger as Trigger
@@ -37,27 +39,48 @@ photoboothMain =
             atomically $
                newTVar False
       
-      loopIsDead <-
-         photoboothLoop loopShouldDie
-      
       -- launch interface
       
-      liftIO $
-         atomically $
-            do
-               isDead <-
-                  readTVar loopIsDead
-               case (isDead) of
-                  False -> retry
-                  True -> return ()
       
       finalizeModules
 
 photoboothLoop ::
    TVar Bool
-   -> CoreMonad cas ins pes phs prs trs (TVar Bool)
+   -> CoreMonad cas ins pes phs prs trs ()
 photoboothLoop shouldDie =
-   undefined
+   do
+      lr <-
+         listenOrDie
+      case (lr) of
+         Nothing -> return ()
+         Just msg -> undefined
+            
+      return ()
+   where
+      listenOrDie =
+         do
+            ts <-
+               getTriggerStorage
+            listenResult <-
+               listen ts
+            waitOrDie listenResult
+      waitOrDie r =
+         do
+            liftIO $ atomically $
+               orElse
+                  (do
+                     r' <-
+                        readTVar r
+                     case (r') of
+                        Nothing -> retry
+                        Just res -> return $ Just res)
+                  (do
+                     shouldDie' <-
+                        readTVar shouldDie
+                     case (shouldDie') of
+                        False -> retry
+                        True -> return Nothing)
+
 
 {-|
    Initializes all the modules

@@ -20,6 +20,7 @@ import Control.Monad.Writer
 import Control.Monad.Trans
 import Control.Monad.Reader
 
+
 -- | Executes the core monad. Used as the entry point for the program
 runCoreMonad ::
    CoreState cas ins pes phs prs trs -- ^ Should be the initial state
@@ -38,6 +39,7 @@ type CoreMonad cas ins pes phs prs trs a =
    MaybeT
    (StateT (CoreState cas ins pes phs prs trs)
    IO) a
+
 
 -- | get the ModuleStorage associated with the Camera module
 getCameraStorage ::
