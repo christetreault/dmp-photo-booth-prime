@@ -243,42 +243,42 @@ initCoreState =
              csCamera =
                ModuleStorage
                   {modState = initialCameraState,
-                   modConfig = 
+                   modConfig =
                      Configuration
                         {moduleName = Camera,
                          moduleConfig = defaultCameraConfig}},
              csInterface =
                 ModuleStorage
                    {modState = initialInterfaceState,
-                    modConfig = 
+                    modConfig =
                      Configuration
                         {moduleName = Interface,
                          moduleConfig = defaultInterfaceConfig}},
              csPersistence =
                 ModuleStorage
                    {modState = initialPersistenceState,
-                    modConfig = 
+                    modConfig =
                      Configuration
                         {moduleName = Persistence,
                          moduleConfig = defaultPersistenceConfig}},
              csPhotostrip =
                 ModuleStorage
                    {modState = initialPhotostripState,
-                    modConfig = 
+                    modConfig =
                      Configuration
                         {moduleName = Photostrip,
                          moduleConfig = defaultPhotostripConfig}},
              csPrinter =
                 ModuleStorage
                    {modState = initialPrinterState,
-                    modConfig = 
+                    modConfig =
                      Configuration
                         {moduleName = Printer,
                          moduleConfig = defaultPrinterConfig}},
              csTrigger =
                 ModuleStorage
                    {modState = initialTriggerState,
-                    modConfig = 
+                    modConfig =
                      Configuration
                         {moduleName = Trigger,
                          moduleConfig = defaultTriggerConfig}}}

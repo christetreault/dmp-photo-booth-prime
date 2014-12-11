@@ -19,7 +19,7 @@ import Control.Monad.Trans.Maybe
 -}
 type LogQueue = TQueue LogEntry
 
-{-| 
+{-|
    The core stores the module configs and states between module monad
    invocations. This type is used to store this data
 -}
@@ -31,7 +31,7 @@ data ModuleStorage a =
        }
 
 {-|
-   The state of the Core. Stores all module configs and states 
+   The state of the Core. Stores all module configs and states
 -}
 data CoreState cas ins pes phs prs trs =
    CoreState

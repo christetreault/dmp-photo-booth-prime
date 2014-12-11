@@ -23,7 +23,7 @@ with a new one, then compile with the new module. So long as the new module
 implements the interface of its module, it will work seamlessly with the
 program.
 
-This file is a wrapper around the module implementations. The actual 
+This file is a wrapper around the module implementations. The actual
 implementations should be imported by this file. This file contains functions
 that are, by default, undefined. These functions should be mapped to module
 functions by defining the glue functions in this module.
@@ -69,7 +69,7 @@ finalizePrinter ms =
       (PrinterResult)
       ms
       PrinterMod.finalize
-   
+
 defaultPrinterConfig =
    PrinterMod.defaultConfig
 
@@ -90,18 +90,18 @@ startPrint b ms =
 -------------------------------------------------------------------------------
 
 listen ms =
-   asyncCall 
+   asyncCall
       (TriggerResult)
       ms $
          TriggerMod.listen
 
-initTrigger ms = 
+initTrigger ms =
    runModuleT
       (TriggerResult)
       ms
       TriggerMod.init
 
-finalizeTrigger ms = 
+finalizeTrigger ms =
    runModuleT
       (TriggerResult)
       ms

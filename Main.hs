@@ -12,11 +12,14 @@ import DMP.Photobooth
 import DMP.Photobooth.Monads
 import DMP.Photobooth.Core
 
+main :: IO ()
 main =
    do
       coreState <-
          initCoreState
-      runCoreMonad
-         coreState
-         photoboothMain
-      
+      coreResult <-
+         runCoreMonad
+            coreState
+            photoboothMain
+
+      return ()
