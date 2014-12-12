@@ -110,20 +110,20 @@ finalizeTrigger ms =
 initialTriggerState =
    TriggerMod.initialState
 
-defaultTriggerConfig = 
+defaultTriggerConfig =
    TriggerMod.defaultConfig
 
 -------------------------------------------------------------------------------
 -- Camera module function definitions -----------------------------------------
 -------------------------------------------------------------------------------
 
-initCamera ms = 
-   runModuleT 
+initCamera ms =
+   runModuleT
       (CameraResult)
       ms
       CameraMod.init
 
-finalizeCamera ms = 
+finalizeCamera ms =
    runModuleT
       (CameraResult)
       ms
@@ -132,7 +132,7 @@ finalizeCamera ms =
 initialCameraState =
    CameraMod.initialState
 
-defaultCameraConfig = 
+defaultCameraConfig =
    CameraMod.defaultConfig
 
 startCapture ms =
@@ -145,13 +145,13 @@ startCapture ms =
 -- Interface module function definitions --------------------------------------
 -------------------------------------------------------------------------------
 
-initInterface ms = 
-   runModuleT 
+initInterface ms =
+   runModuleT
       (InterfaceResult)
       ms
       InterfaceMod.init
 
-finalizeInterface ms = 
+finalizeInterface ms =
    runModuleT
       (InterfaceResult)
       ms
@@ -174,13 +174,13 @@ process r ms =
          PhotostripMod.process
             r
 
-initPhotostrip ms = 
-   runModuleT 
+initPhotostrip ms =
+   runModuleT
       (PhotostripResult)
       ms
       PhotostripMod.init
 
-finalizePhotostrip ms = 
+finalizePhotostrip ms =
    runModuleT
       (PhotostripResult)
       ms
@@ -189,7 +189,7 @@ finalizePhotostrip ms =
 initialPhotostripState =
    PhotostripMod.initialState
 
-defaultPhotostripConfig = 
+defaultPhotostripConfig =
    PhotostripMod.defaultConfig
 
 -------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ persist m k p ms =
    runModuleT
       (PersistenceResult)
       ms $
-         PersistenceMod.persist 
+         PersistenceMod.persist
             m
             k
             p
@@ -219,7 +219,7 @@ initPersistence ms =
       ms
       PersistenceMod.init
 
-finalizePersistence ms = 
+finalizePersistence ms =
    runModuleT
       (PersistenceResult)
       ms
@@ -228,5 +228,5 @@ finalizePersistence ms =
 initialPersistenceState =
    PersistenceMod.initialState
 
-defaultPersistenceConfig = 
+defaultPersistenceConfig =
    PersistenceMod.defaultConfig

@@ -21,7 +21,6 @@ import Control.Concurrent
 import Control.Monad.Trans.Maybe
 import DMP.Photobooth.Loop
 
-
 photoboothMain ::
    CoreMonad cas ins pes phs prs trs ()
 photoboothMain =
