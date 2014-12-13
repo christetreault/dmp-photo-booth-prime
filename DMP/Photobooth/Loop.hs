@@ -15,6 +15,7 @@ import DMP.Photobooth.Monads
 import DMP.Photobooth.Core
 import DMP.Photobooth.Module
 import Control.Monad.Trans (liftIO)
+import Data.ByteString.Lazy as BS
 
 {-|
 Photostrip processing loop.
@@ -29,16 +30,48 @@ photoboothLoop ::
    -> CoreMonad cas ins pes phs prs trs ()
 photoboothLoop shouldDie =
    do
-      lr <-
-         listenOrDie
-      case lr of
+      maybeSuccess <-
+         listenOrDie shouldDie >>
+         captureOrDie shouldDie  >>=
+         processOrDie shouldDie >>=
+         printOrDie shouldDie
+      case maybeSuccess of
          Nothing -> return ()
-         Just msg -> undefined
+         Just _ -> photoboothLoop shouldDie
 
-      return ()
-   where
-      listenOrDie =
-         getTriggerStorage >>= listen >>= waitOrDie shouldDie
+listenOrDie ::
+   TVar Bool
+   -> CoreMonad cas ins pes phs prs trs (Maybe ())
+listenOrDie shouldDie =
+   undefined
+   --(unwrap listen getTriggerStorage) >>= (waitOrDie shouldDie)
+
+captureOrDie ::
+   TVar Bool
+   -> CoreMonad cas ins pes phs prs trs (Maybe [BS.ByteString])
+captureOrDie shouldDie =
+   undefined
+   --timedCapture >>= (waitOrDie shouldDie)
+
+processOrDie ::
+   TVar Bool
+   -> Maybe [BS.ByteString]
+   -> CoreMonad cas ins pes phs prs trs (Maybe BS.ByteString)
+processOrDie shouldDie (Just psl) =
+   undefined
+processOrDie _ Nothing =
+   return Nothing
+   --getPhotostripStorage >>= (process psl) >>= (waitOrDie shouldDie)
+
+printOrDie ::
+   TVar Bool
+   -> Maybe BS.ByteString
+   -> CoreMonad cas ins pes phs prs trs (Maybe ())
+printOrDie shouldDie (Just strip) =
+   undefined
+printOrDie _ Nothing =
+   return Nothing
+   --getPrinterStorage >>= (startPrint strip) >>= (waitOrDie shouldDie)
 
 
 {-|
@@ -54,18 +87,20 @@ waitOrDie shouldDie result =
    liftIO $
    atomically $
    orElse
-   (do
-       r' <-
-          readTVar result
-       case r' of
-          Nothing -> retry
-          Just res -> return $ Just res)
-   (do
-       shouldDie' <-
-          readTVar shouldDie
-       if
-          shouldDie'
-          then
-          return Nothing
-          else
-          retry)
+   (
+      do
+         r' <-
+            readTVar result
+         case r' of
+            Nothing -> retry
+            Just res -> return $ Just res)
+   (
+      do
+         shouldDie' <-
+            readTVar shouldDie
+         if
+            shouldDie'
+            then
+            return Nothing
+            else
+            retry)

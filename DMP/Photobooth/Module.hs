@@ -60,15 +60,15 @@ import qualified DMP.Photobooth.Module.Persistence as PersistenceMod
 
 initPrinter ms =
    runModuleT
-      (PrinterResult)
-      ms
-      PrinterMod.init
+   (PrinterResult)
+   ms
+   PrinterMod.init
 
 finalizePrinter ms =
    runModuleT
-      (PrinterResult)
-      ms
-      PrinterMod.finalize
+   (PrinterResult)
+   ms
+   PrinterMod.finalize
 
 defaultPrinterConfig =
    PrinterMod.defaultConfig
@@ -78,10 +78,10 @@ initialPrinterState =
 
 startPrint b ms =
    asyncCall
-      (PrinterResult)
-      ms $
-         PrinterMod.printStrip
-            b
+   (PrinterResult)
+   ms $
+   PrinterMod.printStrip
+   b
 
 
 
@@ -91,21 +91,27 @@ startPrint b ms =
 
 listen ms =
    asyncCall
-      (TriggerResult)
-      ms $
-         TriggerMod.listen
+   (TriggerResult)
+   ms $
+   TriggerMod.listen
+
+countdown ms =
+   asyncCall
+   (TriggerResult)
+   ms $
+   TriggerMod.countdown
 
 initTrigger ms =
    runModuleT
-      (TriggerResult)
-      ms
-      TriggerMod.init
+   (TriggerResult)
+   ms
+   TriggerMod.init
 
 finalizeTrigger ms =
    runModuleT
-      (TriggerResult)
-      ms
-      TriggerMod.finalize
+   (TriggerResult)
+   ms
+   TriggerMod.finalize
 
 initialTriggerState =
    TriggerMod.initialState
@@ -119,15 +125,15 @@ defaultTriggerConfig =
 
 initCamera ms =
    runModuleT
-      (CameraResult)
-      ms
-      CameraMod.init
+   (CameraResult)
+   ms
+   CameraMod.init
 
 finalizeCamera ms =
    runModuleT
-      (CameraResult)
-      ms
-      CameraMod.finalize
+   (CameraResult)
+   ms
+   CameraMod.finalize
 
 initialCameraState =
    CameraMod.initialState
@@ -137,9 +143,9 @@ defaultCameraConfig =
 
 startCapture ms =
    asyncCall
-      (CameraResult)
-      ms
-      CameraMod.capture
+   (CameraResult)
+   ms
+   CameraMod.capture
 
 -------------------------------------------------------------------------------
 -- Interface module function definitions --------------------------------------
@@ -147,15 +153,15 @@ startCapture ms =
 
 initInterface ms =
    runModuleT
-      (InterfaceResult)
-      ms
-      InterfaceMod.init
+   (InterfaceResult)
+   ms
+   InterfaceMod.init
 
 finalizeInterface ms =
    runModuleT
-      (InterfaceResult)
-      ms
-      InterfaceMod.finalize
+   (InterfaceResult)
+   ms
+   InterfaceMod.finalize
 
 initialInterfaceState =
    InterfaceMod.initialState
@@ -169,22 +175,22 @@ defaultInterfaceConfig =
 
 process r ms =
    asyncCall
-      (PhotostripResult)
-      ms $
-         PhotostripMod.process
-            r
+   (PhotostripResult)
+   ms $
+   PhotostripMod.process
+   r
 
 initPhotostrip ms =
    runModuleT
-      (PhotostripResult)
-      ms
-      PhotostripMod.init
+   (PhotostripResult)
+   ms
+   PhotostripMod.init
 
 finalizePhotostrip ms =
    runModuleT
-      (PhotostripResult)
-      ms
-      PhotostripMod.finalize
+   (PhotostripResult)
+   ms
+   PhotostripMod.finalize
 
 initialPhotostripState =
    PhotostripMod.initialState
@@ -198,32 +204,32 @@ defaultPhotostripConfig =
 
 persist m k p ms =
    runModuleT
-      (PersistenceResult)
-      ms $
-         PersistenceMod.persist
-            m
-            k
-            p
+   (PersistenceResult)
+   ms $
+   PersistenceMod.persist
+   m
+   k
+   p
 
 restore m k ms =
    runModuleT
-      (PersistenceResult)
-      ms $
-         PersistenceMod.restore
-            m
-            k
+   (PersistenceResult)
+   ms $
+   PersistenceMod.restore
+   m
+   k
 
 initPersistence ms =
    runModuleT
-      (PersistenceResult)
-      ms
-      PersistenceMod.init
+   (PersistenceResult)
+   ms
+   PersistenceMod.init
 
 finalizePersistence ms =
    runModuleT
-      (PersistenceResult)
-      ms
-      PersistenceMod.finalize
+   (PersistenceResult)
+   ms
+   PersistenceMod.finalize
 
 initialPersistenceState =
    PersistenceMod.initialState

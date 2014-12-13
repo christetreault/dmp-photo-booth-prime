@@ -32,8 +32,8 @@ runCoreMonad s m =
       s
 
 {-|
-   The photobooth core monad. Manages manages the configs of all modules and
-   facilitates transactions between modules.
+The photobooth core monad. Manages manages the configs of all modules and
+facilitates transactions between modules.
 -}
 type CoreMonad cas ins pes phs prs trs a =
    MaybeT
@@ -138,23 +138,23 @@ setTriggerStorage s =
          state {csTrigger = s}
 
 {-|
-   A minimal monad transfomer that modules are expected to operate within. 
-   Provides logging, configuration, and state management.
+A minimal monad transfomer that modules are expected to operate within.
+Provides logging, configuration, and state management.
 -}
-type ModuleT s m a = 
+type ModuleT s m a =
    ErrorT LogEntry
    (WriterT [LogEntry]
    (ReaderT Configuration
    (StateT (Maybe (TVar s)) m))) a
 
 {-|
-   Execute a ModuleT, returning the log, and the value of the passed-in monad
-   wrapped in the inner monad
+Execute a ModuleT, returning the log, and the value of the passed-in monad
+wrapped in the inner monad
 -}
 runModuleT ::
    (Monad m)
-   => ([LogEntry] 
-          -> (Maybe (TVar s)) 
+   => ([LogEntry]
+          -> (Maybe (TVar s))
           -> (Either LogEntry a)
           -> (Result cas ins pes phs prs trs a))
    -> ModuleStorage s
@@ -163,8 +163,8 @@ runModuleT ::
 runModuleT ctor moduleStorage moduleMonad =
    do
       result <-
-         runStateT 
-            (runReaderT 
+         runStateT
+            (runReaderT
                 (runWriterT
                     (runErrorT moduleMonad))
                 (modConfig moduleStorage))
@@ -176,19 +176,19 @@ runModuleT ctor moduleStorage moduleMonad =
             (fst $ fst result)
 
 {-|
-   Perform a ModuleT computation asynchronously. Returns a TVar that will
-   eventually contain the Result
+Perform a ModuleT computation asynchronously. Returns a TVar that will
+eventually contain the Result
 -}
 asyncCall ::
-   ([LogEntry] 
-       -> (Maybe (TVar s)) 
+   ([LogEntry]
+       -> (Maybe (TVar s))
        -> (Either LogEntry a)
        -> (Result cas ins pes phs prs trs a))
    -> ModuleStorage s
    -> ModuleT s IO a
    -> CoreMonad cas ins pes phs prs trs
          (TVar
-            (Maybe 
+            (Maybe
                (Result cas ins pes phs prs trs a)
             )
          ) -- ^ A TVar, containing Just (a result) if
@@ -200,7 +200,7 @@ asyncCall ctor moduleStorage moduleMonad =
             atomically $
                newTVar Nothing
       liftIO $
-         forkIO $ 
+         forkIO $
             do
                result <-
                   runModuleT
@@ -214,7 +214,7 @@ asyncCall ctor moduleStorage moduleMonad =
       return resultTVar
 
 {-|
-   Log a message into the Module monad
+Log a message into the Module monad
 -}
 logit ::
    (Monad m)
@@ -228,7 +228,7 @@ logit sev msg =
       return ()
 
 {-|
-   Fail from a ModuleT computation, returning a final error message
+Fail from a ModuleT computation, returning a final error message
 -}
 logFail ::
    (Monad m)
@@ -244,7 +244,7 @@ logFail msg =
          msg
 
 {-|
-   Queries the configuration to see what the current module is
+Queries the configuration to see what the current module is
 -}
 whoAmI ::
    (Monad m)
@@ -255,7 +255,7 @@ whoAmI =
       return (moduleName conf)
 
 {-|
-   Returns the configuration of this module, minus metadata
+Returns the configuration of this module, minus metadata
 -}
 askConfig ::
    (Monad m)

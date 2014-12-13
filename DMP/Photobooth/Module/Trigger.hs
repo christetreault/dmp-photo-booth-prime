@@ -20,7 +20,6 @@ that the photobooth is processing a photo strip or printing.
 
 This file represents the functions that must be implemented in order to
 provide a complete implementation.
-
 -}
 
 module DMP.Photobooth.Module.Trigger where
@@ -29,36 +28,37 @@ import DMP.Photobooth.Module.Types
 import DMP.Photobooth.Monads
 
 {-|
-   Messages from the trigger to the core
--}
-data TriggerMessage =
-   Initiate
+Messages from the trigger to the core
+-} -- TODO: Do I need this?
+--data TriggerMessage =
+--   Initiate |
+--   CountdownComplete
 
 {-|
-   Listen for the trigger. When the trigger messages the trigger module, this
-   function returns with the message recieved
+Listen for the trigger. When the trigger messages the trigger module, this
+function returns with the message recieved
 -}
 listen ::
-   ModuleT s IO TriggerMessage
+   ModuleT s IO ()
 listen =
    undefined
 
 {-|
-   Initializes the module with its configuration. Returns a Result
-   object that will contain the module's initial state
-   
-   If the implementation needs to perform some imperative-style
-   "initialization", it should be done here. The return value of this function
-   will be stored by the core and used for this module's functions.
+Initializes the module with its configuration. Returns a Result
+object that will contain the module's initial state
+
+If the implementation needs to perform some imperative-style
+"initialization", it should be done here. The return value of this function
+will be stored by the core and used for this module's functions.
 -}
 init ::
    ModuleT s IO ()
-init = 
+init =
    undefined
 
 {-|
-   Finalizes the module. If this module has any sort of resources that need
-   cleaning up, it should be done here.
+Finalizes the module. If this module has any sort of resources that need
+cleaning up, it should be done here.
 -}
 finalize ::
    ModuleT s IO ()
@@ -66,17 +66,26 @@ finalize =
    undefined
 
 {-|
-   Request the default configuration of this module.
+Request the default configuration of this module.
 -}
 defaultConfig ::
    Persistable
-defaultConfig = 
+defaultConfig =
    undefined
 
 {-|
-   The initial state of the printer module
+The initial state of the printer module
 -}
 initialState ::
    Maybe s
 initialState =
+   undefined
+
+{-|
+Countdown X seconds, then return CountdownComplete. The length of the countdown
+is determined by the module (likely in its config)
+-}
+countdown ::
+   ModuleT s IO ()
+countdown =
    undefined

@@ -38,9 +38,9 @@ printerConfigKey = "printerConfig"
 triggerConfigKey = "triggerConfig"
 
 {-|
-   Reads in all module configs from the persistence module. If restore throws,
-   this function fails. If restore returns Nothing, then the config remains
-   the default value. If restore returns a result, then the config is updated
+Reads in all module configs from the persistence module. If restore throws,
+this function fails. If restore returns Nothing, then the config remains
+the default value. If restore returns a result, then the config is updated
 -}
 readAllConfigs ::
    CoreMonad cas ins pes phs prs trs ()
@@ -78,9 +78,9 @@ readAllConfigs =
          (setTriggerStorage)
 
 {-|
-   Reads in a module config from the persistence module. If restore throws,
-   this function fails. If restore returns Nothing, then the config remains
-   the default value. If restore returns a result, then the config is updated
+Reads in a module config from the persistence module. If restore throws,
+this function fails. If restore returns Nothing, then the config remains
+the default value. If restore returns a result, then the config is updated
 -}
 readModConfig ::
    Source -- ^ The module substore to query
@@ -119,7 +119,7 @@ readModConfig s k gfn sfn =
             return ()
 
 {-|
-   Pushes a LogEntry to the Log Queue
+Pushes a LogEntry to the Log Queue
 -}
 pushLog ::
    LogEntry
@@ -132,7 +132,7 @@ pushLog l =
             writeTQueue (csLogQueue cs) l
 
 {-|
-   Pushes all logs from this result to the Log Queue
+Pushes all logs from this result to the Log Queue
 -}
 pushLogs ::
    Result cas ins pes phs prs trs r
@@ -145,7 +145,7 @@ pushLogs r =
       sequence_ $ map pushLog logs
 
 {-|
-   Stores the state in a Result into the Core state
+Stores the state in a Result into the Core state
 -}
 keepState ::
    Result cas ins pes phs prs trs r
@@ -182,11 +182,11 @@ keepState (TriggerResult  _ s _) =
          store {modState = s}
 
 {-|
-   Runs the passed-in computation, keeps state and pushes logs before
-   returning the result
+Runs the passed-in computation, keeps state and pushes logs before
+returning the result
 -}
 unwrap ::
-   (ModuleStorage s 
+   (ModuleStorage s
        -> IO (Result cas ins pes phs prs trs r)) -- ^ The computation to
                 -- perform. Should be partially applied with all arguments
                 -- except the ModuleStorage
@@ -214,8 +214,8 @@ unwrapResult r =
    where fromEither (Right r') = r'
 
 {-|
-   If an error is encountered, pushes it, then fails the core monad
-   computation
+If an error is encountered, pushes it, then fails the core monad
+computation
 -}
 pushIfError ::
    Either LogEntry r
@@ -228,7 +228,7 @@ pushIfError _ =
    return ()
 
 {-|
-   Builds the initial state of the Core
+Builds the initial state of the Core
 -}
 initCoreState ::
    IO (CoreState cas ins pes phs prs trs)
