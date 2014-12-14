@@ -39,7 +39,7 @@ photoboothMain =
 
 
 {-|
-   Initializes all the modules
+Initializes all the modules
 -}
 initModules ::
    CoreMonad cas ins pes phs prs trs ()
@@ -58,7 +58,7 @@ initModules =
       return ()
 
 {-|
-   Finalizes all the modules
+Finalizes all the modules
 -}
 finalizeModules ::
    CoreMonad cas ins pes phs prs trs ()

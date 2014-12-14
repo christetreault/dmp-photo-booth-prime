@@ -15,13 +15,13 @@ import Control.Concurrent.STM
 import Control.Monad.Trans.Maybe
 
 {-|
-   An atomic, threadsafe, queue to push log entries into
+An atomic, threadsafe, queue to push log entries into
 -}
 type LogQueue = TQueue LogEntry
 
 {-|
-   The core stores the module configs and states between module monad
-   invocations. This type is used to store this data
+The core stores the module configs and states between module monad
+invocations. This type is used to store this data
 -}
 data ModuleStorage a =
    ModuleStorage
@@ -31,7 +31,7 @@ data ModuleStorage a =
        }
 
 {-|
-   The state of the Core. Stores all module configs and states
+The state of the Core. Stores all module configs and states
 -}
 data CoreState cas ins pes phs prs trs =
    CoreState

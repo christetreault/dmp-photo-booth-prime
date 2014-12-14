@@ -1,0 +1,87 @@
+* TODO DMP Photobooth Core
+
+* [[./Main.hs][Main.hs]]
+* TODO Haddock module header
+* TODO document main
+
+** [[./DMP/Photobooth.hs][DMP.Photobooth]]
+** TODO Implement all functions
+** TODO complete photoboothMain
+** TODO document photoboothMain
+** TODO Haddock module header
+
+*** [[./DMP/Photobooth/Core.hs][DMP.Photobooth.Core]]
+*** TODO Haddock module header
+*** TODO Type signatures for *ConfigKey
+*** TODO document unwrapResult
+*** TODO possibly add unwrapAsync
+
+**** [[./DMP/Photobooth/Core/Types.hs][DMP.Photobooth.Core.Types]]
+**** TODO Haddock module header
+
+*** [[./DMP/Photobooth/Loop.hs][DMP.Photobooth.Loop]]
+*** TODO Haddock module header
+*** TODO implement listenOrDie
+*** TODO document listenOrDie
+*** TODO implement captureOrDie
+*** TODO document captureOrDie
+*** TODO implement processOrDie
+*** TODO document processOrDie
+*** TODO implement printOrDie
+*** TODO document printOrDie
+*** TODO module should only export photoboothLoop
+
+*** [[./DMP/Photobooth/Monads.hs][DMP.Photobooth.Monads]]
+*** TODO Haddock module header
+
+*** [[./DMP/Photobooth/Module.hs][DMP.Photobooth.Module]]
+*** TODO type signatures for all modules
+*** TODO Determine any aditional functions required
+
+**** [[./DMP/Photobooth/Module/Types.hs][DMP.Photobooth.Module.Types]]
+
+* Camera Module
+
+* [[./DMP/Photobooth/Module/Camera.hs][DMP.Photobooth.Module.Camera]]
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+* Interface Module
+
+* [[./DMP/Photobooth/Module/Interface.hs][DMP.Photobooth.Module.Interface]]
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+* Persistence Module
+
+* [[./DMP/Photobooth/Module/Persistence.hs][DMP.Photobooth.Module.Persistence]]
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+* Photostrip Module
+
+* [[./DMP/Photobooth/Module/Photostrip.hs][DMP.Photobooth.Module.Photostrip]]
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+* Printer Module
+
+* [[./DMP/Photobooth/Module/Printer.hs][DMP.Photobooth.Module.Printer]]
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+* Trigger Module
+
+* [[./DMP/Photobooth/Module/Trigger.hs][DMP.Photobooth.Module.Trigger]]
+* TODO Determine if I need the TriggerMessage type
+* TODO Identify any additional required functions
+* TODO Implement this module
+
+
+* Supporting Files
+
+* [[./README.md][README.md]]
+* TODO Write readme
+
+* [[./dmp-photo-booth.cabal][dmp-photo-booth.cabal]]
+* TODO Fill out fields

@@ -17,7 +17,6 @@ of various typed properties.
 
 This file represents the functions that must be implemented in order to
 provide a complete implementation.
-
 -}
 
 module DMP.Photobooth.Module.Persistence where
@@ -26,8 +25,8 @@ import DMP.Photobooth.Module.Types
 import DMP.Photobooth.Monads
 
 {-|
-   Persist a persistable. Accepts a source parameter to prevent name collisions
-   between modules. Returns True if successful
+Persist a persistable. Accepts a source parameter to prevent name collisions
+between modules. Returns True if successful
 -}
 persist ::
    Source -- ^ The module requesting persistence
@@ -38,8 +37,8 @@ persist s k p =
    undefined
 
 {-|
-   Request restoration of a persistable. If a value is found at the key, then
-   it is returned, otherwise Nothing is returned
+Request restoration of a persistable. If a value is found at the key, then
+it is returned, otherwise Nothing is returned
 -}
 restore ::
    Source -- ^ The module requesting resoration of a persistable
@@ -49,21 +48,21 @@ restore s k =
    undefined
 
 {-|
-   Initializes the module with its configuration. Returns a Result
-   object that will contain the module's initial state
-   
-   If the implementation needs to perform some imperative-style
-   "initialization", it should be done here. The return value of this function
-   will be stored by the core and used for this module's functions.
+Initializes the module with its configuration. Returns a Result
+object that will contain the module's initial state
+
+If the implementation needs to perform some imperative-style
+"initialization", it should be done here. The return value of this function
+will be stored by the core and used for this module's functions.
 -}
 init ::
    ModuleT s IO ()
-init = 
+init =
    undefined
 
 {-|
-   Finalizes the module. If this module has any sort of resources that need
-   cleaning up, it should be done here.
+Finalizes the module. If this module has any sort of resources that need
+cleaning up, it should be done here.
 -}
 finalize ::
    ModuleT s IO ()
@@ -71,15 +70,15 @@ finalize =
    undefined
 
 {-|
-   Request the default configuration of this module.
+Request the default configuration of this module.
 -}
 defaultConfig ::
    Persistable
-defaultConfig = 
+defaultConfig =
    undefined
 
 {-|
-   The initial state of the printer module, or Nothing
+The initial state of the printer module, or Nothing
 -}
 initialState ::
    Maybe s

@@ -15,7 +15,6 @@ responsability To transform these images into one single photostrip image.
 
 This file represents the functions that must be implemented in order to
 provide a complete implementation.
-
 -}
 
 module DMP.Photobooth.Module.Photostrip where
