@@ -86,7 +86,9 @@
 * Supporting Files
 
 * [[./README.md][README.md]]
-* TODO Write readme
+* DONE Write readme
+  CLOSED: [2014-12-30 Tue 21:16]
+* TODO Write detailed readme when the project starts to come together
 
 * [[./dmp-photo-booth.cabal][dmp-photo-booth.cabal]]
 * TODO Fill out fields

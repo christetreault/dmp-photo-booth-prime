@@ -20,7 +20,7 @@ import DMP.Photobooth.Module.Types
    Capture a photo.
 -}
 capture ::
-   ModuleT s IO BS.ByteString
+   ModuleT s BS.ByteString
 capture =
    undefined
 
@@ -33,7 +33,7 @@ If the implementation needs to perform some imperative-style
 will be stored by the core and used for this module's functions.
 -}
 init ::
-   ModuleT s IO ()
+   ModuleT s ()
 init =
    undefined
 
@@ -42,7 +42,7 @@ Finalizes the module. If this module has any sort of resources that need
 cleaning up, it should be done here.
 -}
 finalize ::
-   ModuleT s IO ()
+   ModuleT s ()
 finalize =
    undefined
 

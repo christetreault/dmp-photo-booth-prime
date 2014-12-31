@@ -39,7 +39,7 @@ Listen for the trigger. When the trigger messages the trigger module, this
 function returns with the message recieved
 -}
 listen ::
-   ModuleT s IO ()
+   ModuleT s ()
 listen =
    undefined
 
@@ -52,7 +52,7 @@ If the implementation needs to perform some imperative-style
 will be stored by the core and used for this module's functions.
 -}
 init ::
-   ModuleT s IO ()
+   ModuleT s ()
 init =
    undefined
 
@@ -61,7 +61,7 @@ Finalizes the module. If this module has any sort of resources that need
 cleaning up, it should be done here.
 -}
 finalize ::
-   ModuleT s IO ()
+   ModuleT s ()
 finalize =
    undefined
 
@@ -86,6 +86,6 @@ Countdown X seconds, then return CountdownComplete. The length of the countdown
 is determined by the module (likely in its config)
 -}
 countdown ::
-   ModuleT s IO ()
+   ModuleT s ()
 countdown =
    undefined

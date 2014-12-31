@@ -17,7 +17,6 @@ import Control.Monad.Trans.Maybe
 import Control.Monad.Error
 import Control.Concurrent
 import Control.Monad.Writer
-import Control.Monad.Trans
 import Control.Monad.Reader
 
 
@@ -83,9 +82,9 @@ setCameraStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setCameraStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csCamera = s}
+         st {csCamera = s}
 
 -- | update the ModuleStorage associated with the Interface module
 setInterfaceStorage ::
@@ -93,9 +92,9 @@ setInterfaceStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setInterfaceStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csInterface = s}
+         st {csInterface = s}
 
 -- | update the ModuleStorage associated with the Persistence module
 setPersistenceStorage ::
@@ -103,9 +102,9 @@ setPersistenceStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setPersistenceStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csPersistence = s}
+         st {csPersistence = s}
 
 -- | update the ModuleStorage associated with the Photostrip module
 setPhotostripStorage ::
@@ -113,9 +112,9 @@ setPhotostripStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setPhotostripStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csPhotostrip = s}
+         st {csPhotostrip = s}
 
 -- | update the ModuleStorage associated with the Printer module
 setPrinterStorage ::
@@ -123,9 +122,9 @@ setPrinterStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setPrinterStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csPrinter = s}
+         st {csPrinter = s}
 
 -- | update the ModuleStorage associated with the Trigger module
 setTriggerStorage ::
@@ -133,33 +132,32 @@ setTriggerStorage ::
    -> CoreMonad cas ins pes phs prs trs ()
 setTriggerStorage s =
    do
-      state <- get
+      st <- get
       put $
-         state {csTrigger = s}
+         st {csTrigger = s}
 
 {-|
 A minimal monad transfomer that modules are expected to operate within.
 Provides logging, configuration, and state management.
 -}
-type ModuleT s m a =
+type ModuleT s a =
    ErrorT LogEntry
    (WriterT [LogEntry]
    (ReaderT Configuration
-   (StateT (Maybe (TVar s)) m))) a
+   (StateT (Maybe (TVar s)) IO))) a
 
 {-|
 Execute a ModuleT, returning the log, and the value of the passed-in monad
 wrapped in the inner monad
 -}
 runModuleT ::
-   (Monad m)
-   => ([LogEntry]
-          -> (Maybe (TVar s))
-          -> (Either LogEntry a)
-          -> (Result cas ins pes phs prs trs a))
+   ([LogEntry]
+       -> (Maybe (TVar s))
+       -> (Either LogEntry a)
+       -> (Result cas ins pes phs prs trs a))
    -> ModuleStorage s
-   -> ModuleT s m a
-   -> m (Result cas ins pes phs prs trs a)
+   -> ModuleT s a
+   -> IO (Result cas ins pes phs prs trs a)
 runModuleT ctor moduleStorage moduleMonad =
    do
       result <-
@@ -185,7 +183,7 @@ asyncCall ::
        -> (Either LogEntry a)
        -> (Result cas ins pes phs prs trs a))
    -> ModuleStorage s
-   -> ModuleT s IO a
+   -> ModuleT s a
    -> CoreMonad cas ins pes phs prs trs
          (TVar
             (Maybe
@@ -217,10 +215,9 @@ asyncCall ctor moduleStorage moduleMonad =
 Log a message into the Module monad
 -}
 logit ::
-   (Monad m)
-   => LogSeverity -- ^ The severity of the message
+   LogSeverity -- ^ The severity of the message
    -> String -- ^ The text of the message
-   -> ModuleT s m ()
+   -> ModuleT s ()
 logit sev msg =
    do
       src <- whoAmI
@@ -231,9 +228,8 @@ logit sev msg =
 Fail from a ModuleT computation, returning a final error message
 -}
 logFail ::
-   (Monad m)
-   => String -- ^ The text of the message
-   -> ModuleT s m ()
+   String -- ^ The text of the message
+   -> ModuleT s ()
 logFail msg =
    do
       src <- whoAmI
@@ -247,8 +243,7 @@ logFail msg =
 Queries the configuration to see what the current module is
 -}
 whoAmI ::
-   (Monad m)
-   => ModuleT s m Source
+   ModuleT s Source
 whoAmI =
    do
       conf <- ask
@@ -258,8 +253,7 @@ whoAmI =
 Returns the configuration of this module, minus metadata
 -}
 askConfig ::
-   (Monad m)
-   => ModuleT s m Persistable
+   ModuleT s Persistable
 askConfig =
    do
       conf <- ask

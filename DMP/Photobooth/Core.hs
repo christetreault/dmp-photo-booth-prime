@@ -193,9 +193,9 @@ returning the result
 -}
 unwrap ::
    (ModuleStorage s
-       -> IO (Result cas ins pes phs prs trs r)) -- ^ The computation to
-                -- perform. Should be partially applied with all arguments
-                -- except the ModuleStorage
+    -> IO (Result cas ins pes phs prs trs r)) -- ^ The computation to
+             -- perform. Should be partially applied with all arguments
+             -- except the ModuleStorage
    -> CoreMonad cas ins pes phs prs trs (ModuleStorage s)
    -> CoreMonad cas ins pes phs prs trs r
 unwrap mfn ms =
@@ -204,7 +204,6 @@ unwrap mfn ms =
       runit <-
          liftIO $ mfn modStore
       unwrapResult runit
-
 
 unwrapResult ::
    Result cas ins pes phs prs trs r

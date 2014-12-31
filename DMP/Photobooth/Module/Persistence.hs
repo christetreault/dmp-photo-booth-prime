@@ -32,7 +32,7 @@ persist ::
    Source -- ^ The module requesting persistence
    -> String -- ^ The key to persist using
    -> Persistable
-   -> ModuleT s IO Bool
+   -> ModuleT s Bool
 persist s k p =
    undefined
 
@@ -43,7 +43,7 @@ it is returned, otherwise Nothing is returned
 restore ::
    Source -- ^ The module requesting resoration of a persistable
    -> String -- ^ The key to look up
-   -> ModuleT s IO (Maybe Persistable)
+   -> ModuleT s (Maybe Persistable)
 restore s k =
    undefined
 
@@ -56,7 +56,7 @@ If the implementation needs to perform some imperative-style
 will be stored by the core and used for this module's functions.
 -}
 init ::
-   ModuleT s IO ()
+   ModuleT s ()
 init =
    undefined
 
@@ -65,7 +65,7 @@ Finalizes the module. If this module has any sort of resources that need
 cleaning up, it should be done here.
 -}
 finalize ::
-   ModuleT s IO ()
+   ModuleT s ()
 finalize =
    undefined
 
