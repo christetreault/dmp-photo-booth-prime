@@ -102,8 +102,8 @@ readModConfig s k gfn sfn =
       conf <-
          unwrap
             (restore
-                s
-                k)
+             s
+             k)
             getPersistenceStorage
       modS <- gfn
       updateConfig
