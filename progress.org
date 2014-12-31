@@ -23,7 +23,8 @@
 **** TODO Haddock module header
 
 *** [[./DMP/Photobooth/Loop.hs][DMP.Photobooth.Loop]]
-*** TODO Haddock module header
+*** DONE Haddock module header
+    CLOSED: [2014-12-30 Tue 17:15]
 *** TODO implement listenOrDie
 *** TODO document listenOrDie
 *** TODO implement captureOrDie

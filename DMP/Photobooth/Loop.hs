@@ -5,6 +5,43 @@ Copyright : (c) Chris Tetreault, 2014
 
 License : GPL-3
 Stability : experimental
+
+Implements the photobooth photostrip loop process:
+
+<begin>
+ |
+ v
+Listen <--------------
+ |              ^    ^
+ v              |    |
+[Triggered?] -> (No) |
+ |                   |
+ v                   |
+(Yes)                |
+ |                   |
+ v                   |
+Capture              |
+ |                   |
+ v                   |
+Assemble Strip       |
+ |                   |
+ V                   |
+Print                |
+ |                   |
+ v                   |
+[Thread Death?] ---> (No)
+ |
+ v
+(Yes)
+ |
+ v
+<end>
+
+This process is performed in a new thread, and will continue until
+the main thread signals it to end. As the process is implemented using
+a Maybe monad, signaling thread death will cause a step to return Nothing,
+and the failures will short-circuit the rest of the process, resulting in
+prompt thread death
 -}
 
 module DMP.Photobooth.Loop
