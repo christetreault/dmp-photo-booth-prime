@@ -1,8 +1,10 @@
 * TODO DMP Photobooth Core
 
 * [[./Main.hs][Main.hs]]
-* TODO Haddock module header
-* TODO document main
+* DONE Haddock module header
+  CLOSED: [2014-12-30 Tue 16:46]
+* DONE document main
+  CLOSED: [2014-12-30 Tue 16:46]
 
 ** [[./DMP/Photobooth.hs][DMP.Photobooth]]
 ** TODO Implement all functions
@@ -12,7 +14,8 @@
 
 *** [[./DMP/Photobooth/Core.hs][DMP.Photobooth.Core]]
 *** TODO Haddock module header
-*** TODO Type signatures for *ConfigKey
+*** DONE Type signatures for *ConfigKey
+    CLOSED: [2014-12-30 Tue 16:32]
 *** TODO document unwrapResult
 *** TODO possibly add unwrapAsync
 

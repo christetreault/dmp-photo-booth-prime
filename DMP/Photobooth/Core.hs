@@ -20,21 +20,27 @@ import Control.Monad.State
 
 
 -- | Key for the camera module configs
+cameraConfigKey :: String
 cameraConfigKey = "cameraConfig"
 
 -- | Key for the interface module configs
+interfaceConfigKey :: String
 interfaceConfigKey = "interfaceConfig"
 
 -- | Key for the persistence module configs
+persistenceConfigKey :: String
 persistenceConfigKey = "persistenceConfig"
 
 -- | Key for the photostrip module configs
+photostripConfigKey :: String
 photostripConfigKey = "photostripConfig"
 
 -- | Key for the printer module configs
+printerConfigKey :: String
 printerConfigKey = "printerConfig"
 
 -- | Key for the trigger module configs
+triggerConfigKey :: String
 triggerConfigKey = "triggerConfig"
 
 {-|
