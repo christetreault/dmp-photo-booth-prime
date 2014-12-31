@@ -7,7 +7,9 @@ License : GPL-3
 Stability : experimental
 -}
 
-module DMP.Photobooth.Loop where
+module DMP.Photobooth.Loop
+       (photoboothLoop)
+       where
 
 import Control.Concurrent.STM
 import DMP.Photobooth.Core.Types

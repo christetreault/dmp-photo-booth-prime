@@ -32,7 +32,8 @@
 *** TODO document processOrDie
 *** TODO implement printOrDie
 *** TODO document printOrDie
-*** TODO module should only export photoboothLoop
+*** DONE module should only export photoboothLoop
+    CLOSED: [2014-12-30 Tue 16:54]
 
 *** [[./DMP/Photobooth/Monads.hs][DMP.Photobooth.Monads]]
 *** TODO Haddock module header
